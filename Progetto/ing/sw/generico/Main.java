@@ -1,4 +1,4 @@
-package Progetto.ing.sw;
+package Progetto.ing.sw.generico;
 
 public class Main {
     private String nome = "Main";
