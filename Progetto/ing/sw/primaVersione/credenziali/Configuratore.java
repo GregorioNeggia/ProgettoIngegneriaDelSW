@@ -1,4 +1,4 @@
-package Progetto.ing.sw.primaVersione;
+package Progetto.ing.sw.primaVersione.credenziali;
 
 import Progetto.ing.sw.Utility;
 
@@ -30,6 +30,7 @@ public class Configuratore {
             this.password = password;
             this.primoAccesso = accesso;
         }
+
 
     }
 
