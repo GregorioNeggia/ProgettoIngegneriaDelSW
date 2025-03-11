@@ -4,11 +4,16 @@ public class Luogo {
     private String nome;
     private String descrizione;
     private String posizioneGeografica;
+    private String ambitoTerritoriale;
+    private boolean accessibile;
 
-    public Luogo(String n, String d, String p) {
+
+    public Luogo(String nome, String descrizione, String posizioneGeografica, String ambitoTerritoriale, boolean accessibile) {
         this.nome = nome;
         this.descrizione = descrizione;
         this.posizioneGeografica = posizioneGeografica;
+        this.ambitoTerritoriale = ambitoTerritoriale;
+        this.accessibile = accessibile;
     }
 
     public String getNome() {
@@ -35,11 +40,20 @@ public class Luogo {
         this.posizioneGeografica = posizioneGeografica;
     }
 
+    public String getAmbitoTerritoriale() {
+        return ambitoTerritoriale;
+    }
+
+    public boolean isAccessibile() {
+        return accessibile;
+    }
+
     @Override
     public String toString() {
         return "Luogo: \n" +
                 " nome: \n" + nome +
                 " descrizione: \n" + descrizione +
-                " posizioneGeografica: \n" + posizioneGeografica ;
+                " posizioneGeografica: \n" + posizioneGeografica +
+                " Ambito Territoriale: \n" + ambitoTerritoriale;
     }
 }
