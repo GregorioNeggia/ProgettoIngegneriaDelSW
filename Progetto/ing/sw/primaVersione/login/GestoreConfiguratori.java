@@ -1,10 +1,11 @@
-package Progetto.ing.sw.primaVersione;
+package Progetto.ing.sw.primaVersione.login;
 import Progetto.ing.sw.generico.Utilità.Input;
 
 import java.io.*;
 import java.util.*;
 
 public class GestoreConfiguratori {
+    
     private static final String FILE_CONFIGURATORE = "configuratori.ser";
     private static final String DEFAULT_USERNAME = "admin";
     private static final String DEFAULT_PASSWORD = "admin123";
@@ -34,7 +35,7 @@ public class GestoreConfiguratori {
             return (List<Configuratore>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             System.out.println(ERRORE_CARICAMENTO);
-            return new ArrayList<>();
+            return null;
         }
     }
 
@@ -59,10 +60,24 @@ public class GestoreConfiguratori {
         return null;
     }
 
-    public static void loginConfiguratore() {
-        if (caricaConfiguratori().isEmpty()) {
-            System.out.println(NESSUN_CONFIGURATORE);
 
-        }
+    public static void loginConfiguratore() {
+
     }
+
+    //metodi per interfaccia
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

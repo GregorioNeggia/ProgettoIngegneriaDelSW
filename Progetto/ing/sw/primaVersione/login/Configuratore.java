@@ -1,4 +1,4 @@
-package Progetto.ing.sw.primaVersione;
+package Progetto.ing.sw.primaVersione.login;
 import java.io.Serializable;
 
 public class Configuratore implements Serializable {
@@ -6,10 +6,12 @@ public class Configuratore implements Serializable {
 
     private String username;
     private String password;
+    private boolean check;
 
     public Configuratore(String username, String password) {
         this.username = username;
         this.password = password;
+        this.check = check;
     }
 
 
@@ -21,7 +23,16 @@ public class Configuratore implements Serializable {
         return password;
     }
 
+    public boolean isCheck() {
+        return check;
+    }
+
+    public void setCheck(boolean check) {
+        this.check = check;
+    }
+
     public void setUsername(String username) {
+
         this.username = username;
     }
 
