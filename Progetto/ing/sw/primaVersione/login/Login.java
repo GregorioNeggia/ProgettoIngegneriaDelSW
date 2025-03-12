@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import static Progetto.ing.sw.generico.Utilità.Grafica.*;
+
 public class Login extends JFrame {
     private static final String FILE_CONFIGURATORE = "configuratori.ser";
     private static final String DEFAULT_USERNAME = "admin";
@@ -26,12 +28,12 @@ public class Login extends JFrame {
 
     private JTextField usernameField;
     private JPasswordField passwordField;
-    private JButton loginButton;
+    private JButton loginButton = bottoneAzione("Login");
     private JLabel messageLabel;
 
     public Login() {
         setTitle("Login Configuratore");
-        setSize(400, 200);
+        setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         initComponents();
@@ -46,7 +48,7 @@ public class Login extends JFrame {
         passwordField = new JPasswordField();
         passwordField.setEnabled(false);
 
-        loginButton = new JButton("Login");
+
         messageLabel = new JLabel();
 
         panel.add(usernameLabel);
@@ -97,7 +99,7 @@ public class Login extends JFrame {
 
         if (userExists) {
             messageLabel.setText("Login riuscito.");
-            // Implementa la logica post-login qui
+            //logica post login
         } else if (username.equals(DEFAULT_USERNAME) && password.equals(DEFAULT_PASSWORD)) {
             messageLabel.setText("Login con credenziali di default riuscito. Crea il tuo profilo.");
             Configuratore nuovoConfiguratore = GestoreConfiguratori.creaConfiguratore();
