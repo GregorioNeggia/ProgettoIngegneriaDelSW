@@ -1,5 +1,5 @@
 package Progetto.ing.sw.primaVersione;
-import Progetto.ing.sw.Utility;
+import Progetto.ing.sw.generico.Utilità.Input;
 
 import java.io.*;
 import java.util.*;
@@ -46,12 +46,12 @@ public class GestoreConfiguratori {
 
     public static Configuratore creaConfiguratore() {
         Configuratore configuratore = new Configuratore(DEFAULT_USERNAME, DEFAULT_PASSWORD);
-        String username = Utility.leggiStringa(INSERISCI_USERNAME_DEFAULT);
-        String password = Utility.leggiStringa(INSERISCI_PASSWORD_DEFAULT);
+        String username = Input.leggiStringa(INSERISCI_USERNAME_DEFAULT);
+        String password = Input.leggiStringa(INSERISCI_PASSWORD_DEFAULT);
         if (username.equals(configuratore.getUsername()) && password.equals(configuratore.getPassword())) {
             System.out.println(CREA_PROFILO);
-            configuratore.setUsername(Utility.leggiStringa(INSERISCI_USERNAME));
-            configuratore.setPassword(Utility.leggiStringa(INSERISCI_PASSWORD));
+            configuratore.setUsername(Input.leggiStringa(INSERISCI_USERNAME));
+            configuratore.setPassword(Input.leggiStringa(INSERISCI_PASSWORD));
             return configuratore;
         } else {
             System.out.println(USERNAME_PASSWORD_ERRATI);
@@ -62,7 +62,7 @@ public class GestoreConfiguratori {
     public static void loginConfiguratore() {
         if (caricaConfiguratori().isEmpty()) {
             System.out.println(NESSUN_CONFIGURATORE);
-            Configuratore configuratore = creaConfiguratore();
+
         }
     }
 }

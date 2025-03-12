@@ -1,6 +1,5 @@
 package Progetto.ing.sw.primaVersione;
 import java.io.Serializable;
-import Progetto.ing.sw.Utility;
 
 public class Configuratore implements Serializable {
     private static final long serialVersionUID = 1L;

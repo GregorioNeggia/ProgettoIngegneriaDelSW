@@ -1,7 +1,7 @@
-package Progetto.ing.sw;
+package Progetto.ing.sw.generico.Utilità;
 import java.util.*;
 
-public class Utility {
+public class Input {
     private static Scanner scanner = new Scanner(System.in);
 //metodi per input dati
     public static int leggiIntero(String messaggio) {
@@ -17,6 +17,8 @@ public class Utility {
             System.out.print(messaggio);
             return scanner.next();
         }
+
+
     }
 
 
