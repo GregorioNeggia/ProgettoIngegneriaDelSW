@@ -16,6 +16,17 @@ public class Grafica {
         return bottoneAzione;
     }
 
+    public static JFrame framePrincipale(String titolo){
+        JFrame frame = new JFrame();
+        frame.setTitle(titolo);
+        frame.setSize(600, 600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        return frame;
+    }
+
+
+
 
 
 }

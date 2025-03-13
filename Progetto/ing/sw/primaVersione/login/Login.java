@@ -36,45 +36,35 @@ public class Login extends JFrame {
         setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        initComponents();
+        schermataAvvio(); // Usa il frame esistente invece di crearne uno nuovo
+        setVisible(true); // Mostra il frame alla fine
     }
 
-    private void initComponents() {
-        JPanel panel = new JPanel(new GridLayout(4, 2));
+    private void schermataAvvio() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // Layout verticale
 
-        JLabel usernameLabel = new JLabel("Username:");
-        usernameField = new JTextField();
-        JLabel passwordLabel = new JLabel("Password:");
-        passwordField = new JPasswordField();
-        passwordField.setEnabled(false);
+        JLabel benvenuto = new JLabel("Benvenuto nel sistema di configurazione");
+        benvenuto.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        JButton iscriviti = new JButton("Iscriviti");
+        JButton login = new JButton("Login");
 
-        messageLabel = new JLabel();
+        iscriviti.setAlignmentX(Component.CENTER_ALIGNMENT);
+        login.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        panel.add(usernameLabel);
-        panel.add(usernameField);
-        panel.add(passwordLabel);
-        panel.add(passwordField);
-        panel.add(new JLabel());
-        panel.add(loginButton);
-        panel.add(messageLabel);
+        // Aggiunta di spazio tra i componenti
+        panel.add(Box.createVerticalStrut(20));
+        panel.add(benvenuto);
+        panel.add(Box.createVerticalStrut(20));
+        panel.add(iscriviti);
+        panel.add(Box.createVerticalStrut(10));
+        panel.add(login);
 
-        add(panel, BorderLayout.CENTER);
-
-        usernameField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                checkUsername();
-            }
-        });
-
-        loginButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                handleLogin();
-            }
-        });
+        // Aggiunta del pannello al frame
+        add(panel);
     }
+
 
     private void checkUsername() {
         String username = usernameField.getText();
