@@ -41,57 +41,30 @@ public class Login extends JFrame {
     }
 
     private void schermataAvvio() {
-        JPanel panel = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10); // Spaziatura tra i componenti
-        gbc.gridx = 0;
-        gbc.gridy = 0;
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // Layout verticale
 
         JLabel benvenuto = new JLabel("Benvenuto nel sistema di configurazione");
-        benvenuto.setFont(new Font("Arial", Font.BOLD, 18));
+        benvenuto.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton iscriviti = new JButton("Iscriviti");
         JButton login = new JButton("Login");
 
-        iscriviti.setPreferredSize(new Dimension(150, 40));
-        login.setPreferredSize(new Dimension(150, 40));
-        //Colori per i pulsanti
-        iscriviti.setBackground(new Color(52, 152, 219)); // Blu chiaro
-        iscriviti.setForeground(Color.WHITE);
-        iscriviti.setFocusPainted(false);
-        iscriviti.setBorder(BorderFactory.createLineBorder(new Color(41, 128, 185), 2));
-        login.setBackground(new Color(46, 204, 113)); // Verde chiaro
-        login.setForeground(Color.WHITE);
-        login.setFocusPainted(false);
-        login.setBorder(BorderFactory.createLineBorder(new Color(39, 174, 96), 2));
+        iscriviti.setAlignmentX(Component.CENTER_ALIGNMENT);
+        login.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-
-        iscriviti.addActionListener(e -> apriRegistrazione());
-        login.addActionListener(e -> apriLogin());
-
-        panel.add(benvenuto, gbc);
-
-        gbc.gridy++;
-        panel.add(iscriviti, gbc);
-
-        gbc.gridy++;
-        panel.add(login, gbc);
+        // Aggiunta di spazio tra i componenti
+        panel.add(Box.createVerticalStrut(20));
+        panel.add(benvenuto);
+        panel.add(Box.createVerticalStrut(20));
+        panel.add(iscriviti);
+        panel.add(Box.createVerticalStrut(10));
+        panel.add(login);
 
         // Aggiunta del pannello al frame
         add(panel);
     }
 
-    // Metodi per aprire le nuove finestre
-    private void apriRegistrazione() {
-        System.out.println("Apertura finestra registrazione...");
-        //Apertura nuova finestra per la registrazione
-
-    }
-
-    private void apriLogin() {
-        System.out.println("Apertura finestra login...");
-        // Qui puoi aprire una nuova finestra per il login vero e proprio
-    }
 
     private void checkUsername() {
         String username = usernameField.getText();
@@ -128,8 +101,6 @@ public class Login extends JFrame {
             messageLabel.setText("Credenziali errate.");
         }
     }
-
-
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

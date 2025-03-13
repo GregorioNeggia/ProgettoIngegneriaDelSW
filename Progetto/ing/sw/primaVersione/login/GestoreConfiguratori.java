@@ -45,27 +45,16 @@ public class GestoreConfiguratori {
         salvaConfiguratore(configuratori);
     }
 
-    public static Configuratore creaConfiguratore() {
-        Configuratore configuratore = new Configuratore(DEFAULT_USERNAME, DEFAULT_PASSWORD);
-        String username = Input.leggiStringa(INSERISCI_USERNAME_DEFAULT);
-        String password = Input.leggiStringa(INSERISCI_PASSWORD_DEFAULT);
-        if (username.equals(configuratore.getUsername()) && password.equals(configuratore.getPassword())) {
-            System.out.println(CREA_PROFILO);
-            configuratore.setUsername(Input.leggiStringa(INSERISCI_USERNAME));
-            configuratore.setPassword(Input.leggiStringa(INSERISCI_PASSWORD));
-            return configuratore;
-        } else {
-            System.out.println(USERNAME_PASSWORD_ERRATI);
-        }
-        return null;
-    }
+    public static Configuratore creaConfiguratore(String username, String password) {
+        Configuratore configuratore = new Configuratore(username, password);
+        List<Configuratore> configuratori = caricaConfiguratori();
 
 
-    public static void loginConfiguratore() {
 
     }
 
-    //metodi per interfaccia
+
+
 
 
 
