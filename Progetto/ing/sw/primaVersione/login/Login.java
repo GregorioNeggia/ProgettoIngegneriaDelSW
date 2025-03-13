@@ -2,8 +2,6 @@ package Progetto.ing.sw.primaVersione.login;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 public class Login extends JFrame {
@@ -48,7 +46,7 @@ public class Login extends JFrame {
 
         // Eventi per cambiare schermata
         login.addActionListener(e -> schermataLogin());
-        iscriviti.addActionListener(e -> schermataRegistrazione());
+        iscriviti.addActionListener(e -> schermataDefault());
 
         panel.add(Box.createVerticalStrut(20));
         panel.add(benvenuto);
@@ -90,7 +88,11 @@ public class Login extends JFrame {
         repaint();
     }
 
-    private void schermataRegistrazione() {
+    private void schermataRegistrazione{
+
+    }
+
+    private void schermataDefault() {
         getContentPane().removeAll();
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -99,6 +101,11 @@ public class Login extends JFrame {
         usernameField = new JTextField(10);
         passwordField = new JPasswordField(10);
         messageLabel = new JLabel("");
+
+        login.addActionListener(if(usernameField.getText().equals(DEFAULT_USERNAME) && passwordField.getPassword().equals(DEFAULT_PASSWORD)) {
+
+            e -> schermataRegistrazione();
+        });
 
         // Evento per tornare indietro
         indietro.addActionListener(e -> schermataAvvio());
@@ -113,6 +120,7 @@ public class Login extends JFrame {
         add(panel);
         revalidate();
         repaint();
+
     }
 
     private void handleLogin() {
