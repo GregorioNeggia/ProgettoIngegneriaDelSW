@@ -6,54 +6,50 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import static Progetto.ing.sw.generico.Utilità.Grafica.*;
-
 public class Login extends JFrame {
     private static final String FILE_CONFIGURATORE = "configuratori.ser";
-    private static final String DEFAULT_USERNAME = "admin";
-    private static final String DEFAULT_PASSWORD = "admin123";
-
-    //costanti per i testi
-    private static final String ERRORE_SALVATAGGIO = "Errore durante il salvataggio delle credenziali.";
-    private static final String ERRORE_CARICAMENTO = "Errore durante il caricamento delle credenziali.";
-    private static final String INSERISCI_USERNAME_DEFAULT = "Inserisci username (Di default): ";
-    private static final String INSERISCI_PASSWORD_DEFAULT = "Inserisci password: (Di default): ";
-    private static final String CREA_PROFILO = "Ora puoi creare il tuo profilo configuratore\n";
-    private static final String INSERISCI_USERNAME = "Inserisci username: ";
-    private static final String INSERISCI_PASSWORD = "Inserisci password: ";
-    private static final String USERNAME_PASSWORD_ERRATI = "Username o password errati.\n Devi inserire quelli di default Riprova\n";
-    private static final String NESSUN_CONFIGURATORE = "Nessun configuratore presente. Creazione di un nuovo configuratore...";
-
-
+    private static final String DEFAULT_USERNAME = "user";
+    private static final String DEFAULT_PASSWORD = "123";
 
     private JTextField usernameField;
     private JPasswordField passwordField;
-    private JButton loginButton = bottoneAzione("Login");
     private JLabel messageLabel;
+
+    private JButton iscriviti;
+    private JButton login;
+    private JButton indietro;
 
     public Login() {
         setTitle("Login Configuratore");
         setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        schermataAvvio(); // Usa il frame esistente invece di crearne uno nuovo
-        setVisible(true); // Mostra il frame alla fine
+
+        // Inizializza pulsanti
+        login = new JButton("Login");
+        iscriviti = new JButton("Iscriviti");
+        login = new JButton("Login");
+        indietro = new JButton("Indietro");
+
+        schermataAvvio(); // Mostra la schermata iniziale
+        setVisible(true);
     }
 
     private void schermataAvvio() {
+        getContentPane().removeAll(); // Pulisce la finestra
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // Layout verticale
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         JLabel benvenuto = new JLabel("Benvenuto nel sistema di configurazione");
         benvenuto.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JButton iscriviti = new JButton("Iscriviti");
-        JButton login = new JButton("Login");
-
-        iscriviti.setAlignmentX(Component.CENTER_ALIGNMENT);
         login.setAlignmentX(Component.CENTER_ALIGNMENT);
+        iscriviti.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Aggiunta di spazio tra i componenti
+        // Eventi per cambiare schermata
+        login.addActionListener(e -> schermataLogin());
+        iscriviti.addActionListener(e -> schermataRegistrazione());
+
         panel.add(Box.createVerticalStrut(20));
         panel.add(benvenuto);
         panel.add(Box.createVerticalStrut(20));
@@ -61,35 +57,75 @@ public class Login extends JFrame {
         panel.add(Box.createVerticalStrut(10));
         panel.add(login);
 
-        // Aggiunta del pannello al frame
         add(panel);
+        revalidate();
+        repaint();
     }
 
+    private void schermataLogin() {
+        getContentPane().removeAll(); // Pulisce la finestra
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-    private void checkUsername() {
-        String username = usernameField.getText();
-        List<Configuratore> configuratori = GestoreConfiguratori.caricaConfiguratori();
-        boolean userExists = configuratori != null && configuratori.stream().anyMatch(c -> c.getUsername().equals(username));
+        JLabel label = new JLabel("Inserisci le credenziali:");
+        usernameField = new JTextField(10);
+        passwordField = new JPasswordField(10);
+        messageLabel = new JLabel(""); // Inizializza il messaggio
 
-        if (userExists) {
-            passwordField.setEnabled(true);
-            messageLabel.setText("Inserisci la password.");
-        } else {
-            passwordField.setEnabled(false);
-            messageLabel.setText("Username non trovato. Usa le credenziali di default.");
-        }
+        // Evento per il login
+        login.addActionListener(e -> handleLogin());
+
+        // Evento per tornare alla schermata principale
+        indietro.addActionListener(e -> schermataAvvio());
+
+        panel.add(label);
+        panel.add(usernameField);
+        panel.add(passwordField);
+        panel.add(login);
+        panel.add(indietro);
+        panel.add(messageLabel); // Aggiunge il messaggio
+
+        add(panel);
+        revalidate();
+        repaint();
+    }
+
+    private void schermataRegistrazione() {
+        getContentPane().removeAll();
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        JLabel label = new JLabel("Registrazione: inserisci le credenziali di default");
+        usernameField = new JTextField(10);
+        passwordField = new JPasswordField(10);
+        messageLabel = new JLabel("");
+
+        // Evento per tornare indietro
+        indietro.addActionListener(e -> schermataAvvio());
+
+        panel.add(label);
+        panel.add(usernameField);
+        panel.add(passwordField);
+        panel.add(login);
+        panel.add(indietro);
+        panel.add(messageLabel);
+
+        add(panel);
+        revalidate();
+        repaint();
     }
 
     private void handleLogin() {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
 
+        // Simulazione di caricamento configuratori
         List<Configuratore> configuratori = GestoreConfiguratori.caricaConfiguratori();
         boolean userExists = configuratori != null && configuratori.stream().anyMatch(c -> c.getUsername().equals(username) && c.getPassword().equals(password));
 
         if (userExists) {
             messageLabel.setText("Login riuscito.");
-            //logica post login
+            // Logica post-login
         } else if (username.equals(DEFAULT_USERNAME) && password.equals(DEFAULT_PASSWORD)) {
             messageLabel.setText("Login con credenziali di default riuscito. Crea il tuo profilo.");
             Configuratore nuovoConfiguratore = GestoreConfiguratori.creaConfiguratore();
@@ -103,11 +139,6 @@ public class Login extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });
+        SwingUtilities.invokeLater(Login::new);
     }
 }

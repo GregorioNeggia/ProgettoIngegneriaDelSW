@@ -61,11 +61,7 @@ public class GestoreConfiguratori {
     }
 
 
-    public static void loginConfiguratore() {
 
-    }
-
-    //metodi per interfaccia
 
 
 
