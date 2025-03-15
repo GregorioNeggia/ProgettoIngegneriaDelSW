@@ -2,6 +2,8 @@ package Progetto.ing.sw.primaVersione.login;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -33,36 +35,89 @@ public class Login extends JFrame {
 
     public Login() {
         setTitle("Login Configuratore");
-        setSize(600, 600);
+        setSize(500, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setUndecorated(true);//Rimuove il bordo
+        setOpacity(0.97f);//Trasparenza
+
         schermataAvvio(); // Usa il frame esistente invece di crearne uno nuovo
         setVisible(true); // Mostra il frame alla fine
     }
 
     private void schermataAvvio() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // Layout verticale
+        JPanel panel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                GradientPaint gradient = new GradientPaint(0, 0, new Color(44, 62, 80), getWidth(), getHeight(), new Color(52, 152, 219));
+                g2d.setPaint(gradient);
+                g2d.fillRect(0, 0, getWidth(), getHeight());
+            }
+        };
+        panel.setLayout(new GridBagLayout()); //Per centrare tutto
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(15, 15, 15, 15); // Spazio tra gli elementi
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
+
 
         JLabel benvenuto = new JLabel("Benvenuto nel sistema di configurazione");
-        benvenuto.setAlignmentX(Component.CENTER_ALIGNMENT);
+        benvenuto.setFont(new Font("Arial", Font.BOLD, 18));
+        benvenuto.setForeground(Color.WHITE);
 
-        JButton iscriviti = new JButton("Iscriviti");
-        JButton login = new JButton("Login");
 
-        iscriviti.setAlignmentX(Component.CENTER_ALIGNMENT);
-        login.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JButton iscriviti = createStyledButton("Iscriviti", new Color(52, 152, 219), new Color(41, 128, 185));
+        JButton login = createStyledButton("Login", new Color(46, 204, 113), new Color(39, 174, 96));
 
-        // Aggiunta di spazio tra i componenti
-        panel.add(Box.createVerticalStrut(20));
-        panel.add(benvenuto);
-        panel.add(Box.createVerticalStrut(20));
-        panel.add(iscriviti);
-        panel.add(Box.createVerticalStrut(10));
-        panel.add(login);
+        iscriviti.addActionListener(e -> checkUsername());
+        login.addActionListener(e -> handleLogin());
 
-        // Aggiunta del pannello al frame
+        panel.add(benvenuto, gbc);
+        gbc.gridy++;
+        panel.add(iscriviti, gbc);
+        gbc.gridy++;
+        panel.add(login, gbc);
+
         add(panel);
+    }
+
+    private JButton createStyledButton(String text, Color baseColor, Color hoverColor) {
+        JButton button = new JButton(text) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(getBackground());
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
+                super.paintComponent(g);
+                g2.dispose();
+            }
+        };
+
+        button.setContentAreaFilled(false);
+        button.setFocusPainted(false);
+        button.setForeground(Color.WHITE);
+        button.setBackground(baseColor);
+        button.setBorder(BorderFactory.createLineBorder(baseColor.darker(), 2));
+        button.setPreferredSize(new Dimension(150, 40));
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                button.setBackground(hoverColor);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                button.setBackground(baseColor);
+            }
+        });
+
+        return button;
     }
 
 
@@ -92,22 +147,17 @@ public class Login extends JFrame {
             //logica post login
         } else if (username.equals(DEFAULT_USERNAME) && password.equals(DEFAULT_PASSWORD)) {
             messageLabel.setText("Login con credenziali di default riuscito. Crea il tuo profilo.");
-            Configuratore nuovoConfiguratore = GestoreConfiguratori.creaConfiguratore();
+           /*Configuratore nuovoConfiguratore = GestoreConfiguratori.creaConfiguratore();
             if (nuovoConfiguratore != null) {
                 GestoreConfiguratori.aggiungiConfiguratore(nuovoConfiguratore);
                 messageLabel.setText("Profilo creato con successo.");
-            }
+            }*/
         } else {
             messageLabel.setText("Credenziali errate.");
         }
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });
+        SwingUtilities.invokeLater(Login::new);
     }
 }

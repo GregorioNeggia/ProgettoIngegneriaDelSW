@@ -5,7 +5,7 @@ import java.io.*;
 import java.util.*;
 
 public class GestoreConfiguratori {
-    
+
     private static final String FILE_CONFIGURATORE = "configuratori.ser";
     private static final String DEFAULT_USERNAME = "admin";
     private static final String DEFAULT_PASSWORD = "admin123";
@@ -49,24 +49,23 @@ public class GestoreConfiguratori {
         Configuratore configuratore = new Configuratore(username, password);
         List<Configuratore> configuratori = caricaConfiguratori();
 
-
-
+        return configuratore;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
