@@ -1,5 +1,6 @@
-package Progetto.ing.sw.primaVersione.login;
-import Progetto.ing.sw.generico.Utilità.Input;
+package Progetto.ing.sw.primaVersione.gestioni;
+
+import Progetto.ing.sw.primaVersione.oggetti.Configuratore;
 
 import java.io.*;
 import java.util.*;
@@ -45,13 +46,10 @@ public class GestoreConfiguratori {
         salvaConfiguratore(configuratori);
     }
 
-    public static Configuratore creaConfiguratore(String username, String password) {
-        Configuratore configuratore = new Configuratore(username, password);
-        List<Configuratore> configuratori = caricaConfiguratori();
 
-        return configuratore;
-    }
 }
+
+
 
 
 
