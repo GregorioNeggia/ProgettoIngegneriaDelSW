@@ -1,18 +1,31 @@
-package Progetto.ing.sw.primaVersione.login;
+package Progetto.ing.sw.primaVersione.oggetti;
 import java.io.Serializable;
+
 
 public class Configuratore implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String username;
     private String password;
-    private boolean check;
+
 
     public Configuratore(String username, String password) {
         this.username = username;
         this.password = password;
-        this.check = check;
+
     }
+
+@Override
+    public  String toString(){
+        StringBuffer sb = new StringBuffer();
+
+        sb.append("Username: ").append(username).append("\n");
+        sb.append("Password: ").append(password).append("\n");
+
+        return sb.toString();
+    }
+
+
 
 
     public String getUsername() {
@@ -23,13 +36,7 @@ public class Configuratore implements Serializable {
         return password;
     }
 
-    public boolean isCheck() {
-        return check;
-    }
 
-    public void setCheck(boolean check) {
-        this.check = check;
-    }
 
     public void setUsername(String username) {
 
