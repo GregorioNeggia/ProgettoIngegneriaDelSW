@@ -53,8 +53,8 @@ public class Login extends JFrame {
         benvenuto.setFont(new Font("Arial", Font.BOLD, 22));
         benvenuto.setForeground(Color.WHITE);
 
-        JButton iscriviti = createStyledButton("Iscriviti", new Color(52, 152, 219), new Color(41, 128, 185));
-        JButton login = createStyledButton("Login", new Color(46, 204, 113), new Color(39, 174, 96));
+        JButton iscriviti = creaPulsanti("Iscriviti", new Color(52, 152, 219), new Color(41, 128, 185));
+        JButton login = creaPulsanti("Login", new Color(46, 204, 113), new Color(39, 174, 96));
 
 
         // Eventi per cambiare schermata
@@ -72,7 +72,7 @@ public class Login extends JFrame {
         repaint(); // Ridisegna la finestra
     }
 
-    private JButton createStyledButton(String text, Color baseColor, Color hoverColor) {
+    private JButton creaPulsanti(String text, Color baseColor, Color hoverColor) {
         JButton button = new JButton(text) {
             @Override
             protected void paintComponent(Graphics g) {
@@ -90,7 +90,7 @@ public class Login extends JFrame {
         button.setForeground(Color.WHITE);
         button.setBackground(baseColor);
         button.setBorder(BorderFactory.createLineBorder(baseColor.darker(), 3));
-        button.setPreferredSize(new Dimension(200, 60)); // Bottoni più grandi
+        button.setPreferredSize(new Dimension(250, 50));
         button.setFont(new Font("Arial", Font.BOLD, 18));
 
         button.addMouseListener(new MouseAdapter() {
@@ -110,19 +110,43 @@ public class Login extends JFrame {
 
     private void schermataLogin() {
         getContentPane().removeAll(); // Pulisce la finestra
+
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // Layout verticale
+
 
         JLabel label = new JLabel("Inserisci le credenziali:");
+        label.setFont(new Font("Arial", Font.BOLD, 18));
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        usernameField = new JTextField(15);
-        passwordField = new JPasswordField(15);
-        messageLabel = new JLabel(""); // Inizializza il messaggio
+        // Campi di testo ridotti
+        usernameField = new JTextField();
+        passwordField = new JPasswordField();
+        usernameField.setPreferredSize(new Dimension(200, 30));
+        passwordField.setPreferredSize(new Dimension(200, 30));
+        usernameField.setMaximumSize(new Dimension(200, 30));
+        passwordField.setMaximumSize(new Dimension(200, 30));
 
-        login = createStyledButton("Accedi", new Color(46, 204, 113), new Color(39, 174, 96));
-        indietro = createStyledButton("Indietro", new Color(231, 76, 60), new Color(192, 57, 43)); // Pulsante per tornare indietro
+        // Etichette per i campi
+        JLabel userLabel = new JLabel("Username:");
+        JLabel passLabel = new JLabel("Password:");
+        userLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        passLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+
+        login = creaPulsanti("Accedi", new Color(46, 204, 113), new Color(39, 174, 96));
+        indietro = creaPulsanti("Indietro", new Color(231, 76, 60), new Color(192, 57, 43)); // Pulsante per tornare indietro
+        login.setAlignmentX(Component.CENTER_ALIGNMENT);
+        indietro.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Pannello per username e password
+        JPanel inputPanel = new JPanel();
+        inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.Y_AXIS));
+        inputPanel.add(userLabel);
+        inputPanel.add(usernameField);
+        inputPanel.add(Box.createVerticalStrut(10)); // Spazio tra i campi
+        inputPanel.add(passLabel);
+        inputPanel.add(passwordField);
 
         // Evento per il login (da implementare)
         //login.addActionListener(e -> handleLogin());
@@ -132,14 +156,20 @@ public class Login extends JFrame {
         // Evento per tornare alla schermata principale
         indietro.addActionListener(e -> schermataAvvio());
 
-        panel.add(label);
-        panel.add(usernameField);
-        panel.add(passwordField);
-        panel.add(login);
-        panel.add(indietro);
-        panel.add(messageLabel); // Aggiunge il messaggio
+        // Pannello per i pulsanti
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 0)); // Affianca i pulsanti
+        buttonPanel.add(indietro);
+        buttonPanel.add(login);
+        buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        add(panel);
+        // Aggiunta componenti al pannello principale
+        panel.add(label);
+        panel.add(Box.createVerticalStrut(10)); // Spazio dopo il titolo
+        panel.add(inputPanel);
+        panel.add(Box.createVerticalStrut(20)); // Spazio tra campi e pulsanti
+        panel.add(buttonPanel);
+
+        setContentPane(panel);
         revalidate();
         repaint();
     }
