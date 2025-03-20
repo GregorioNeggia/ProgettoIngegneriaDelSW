@@ -205,7 +205,7 @@ public class Login extends JFrame {
         userLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         passLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        login = creaPulsanti("Accedi", new Color(46, 204, 113), new Color(39, 174, 96));
+        login = creaPulsanti("Registrati", new Color(46, 204, 113), new Color(39, 174, 96));
         indietro = creaPulsanti("Indietro", new Color(231, 76, 60), new Color(192, 57, 43)); // Pulsante per tornare indietro
         login.setAlignmentX(Component.CENTER_ALIGNMENT);
         indietro.setAlignmentX(Component.CENTER_ALIGNMENT);
