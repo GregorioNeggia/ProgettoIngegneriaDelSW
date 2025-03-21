@@ -23,8 +23,10 @@ public class Login extends JFrame {
         setSize(500, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setUndecorated(true); // Finestra senza bordi
-        setOpacity(0.97f); // Per la trasparenza
+
+        //Se mettiamo queste due tiglie la 'x' nella barra sopra per poter uscire dal programma
+        //setUndecorated(true); // Finestra senza bordi
+        //setOpacity(0.97f); // Per la trasparenza
 
         schermataAvvio(); // Mostra la schermata iniziale
         setVisible(true);
@@ -55,7 +57,6 @@ public class Login extends JFrame {
 
         JButton iscriviti = creaPulsanti("Iscriviti", new Color(52, 152, 219), new Color(41, 128, 185));
         JButton login = creaPulsanti("Login", new Color(46, 204, 113), new Color(39, 174, 96));
-
 
         // Eventi per cambiare schermata
         login.addActionListener(e -> schermataLogin());
@@ -110,7 +111,6 @@ public class Login extends JFrame {
 
     private void schermataLogin() {
         getContentPane().removeAll(); // Pulisce la finestra
-
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // Layout verticale
 
@@ -139,6 +139,7 @@ public class Login extends JFrame {
         login.setAlignmentX(Component.CENTER_ALIGNMENT);
         indietro.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+
         // Pannello per username e password
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.Y_AXIS));
@@ -151,25 +152,26 @@ public class Login extends JFrame {
         // Evento per il login (da implementare)
         //login.addActionListener(e -> handleLogin());
 
-
-
         // Evento per tornare alla schermata principale
         indietro.addActionListener(e -> schermataAvvio());
 
+        /* questo dava i problemi dei pulsanti 'accedi' e 'indietro' enormi
         // Pannello per i pulsanti
-        JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 0)); // Affianca i pulsanti
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 3, 10, 0)); // Affianca i pulsanti
         buttonPanel.add(indietro);
         buttonPanel.add(login);
         buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        */
 
         // Aggiunta componenti al pannello principale
         panel.add(label);
         panel.add(Box.createVerticalStrut(10)); // Spazio dopo il titolo
         panel.add(inputPanel);
         panel.add(Box.createVerticalStrut(20)); // Spazio tra campi e pulsanti
-        panel.add(buttonPanel);
+        panel.add(login);
+        panel.add(indietro);
 
-        setContentPane(panel);
+        add(panel);
         revalidate();
         repaint();
     }
@@ -183,22 +185,52 @@ public class Login extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        JLabel label = new JLabel("Registrazione: inserisci le credenziali di default");
-        usernameField = new JTextField(10);
-        passwordField = new JPasswordField(10);
-        messageLabel = new JLabel("");
+        //<html> ho letto che serve per formattare il testo nei JLabel, <br> è il tag di html che serve per andare a capo
+        JLabel label = new JLabel("<html>Registrazione:<br>(inserire le credenziali di default)</html>");
+        label.setFont(new Font("Arial", Font.BOLD, 18));
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 
+        // Campi di testo ridotti
+        usernameField = new JTextField();
+        passwordField = new JPasswordField();
+        usernameField.setPreferredSize(new Dimension(200, 30));
+        passwordField.setPreferredSize(new Dimension(200, 30));
+        usernameField.setMaximumSize(new Dimension(200, 30));
+        passwordField.setMaximumSize(new Dimension(200, 30));
+
+        // Etichette per i campi
+        JLabel userLabel = new JLabel("Username:");
+        JLabel passLabel = new JLabel("Password:");
+        userLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        passLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        login = creaPulsanti("Registrati", new Color(46, 204, 113), new Color(39, 174, 96));
+        indietro = creaPulsanti("Indietro", new Color(231, 76, 60), new Color(192, 57, 43)); // Pulsante per tornare indietro
+        login.setAlignmentX(Component.CENTER_ALIGNMENT);
+        indietro.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Pannello per username e password
+        JPanel inputPanel = new JPanel();
+        inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.Y_AXIS));
+        inputPanel.add(userLabel);
+        inputPanel.add(usernameField);
+        inputPanel.add(Box.createVerticalStrut(10)); // Spazio tra i campi
+        inputPanel.add(passLabel);
+        inputPanel.add(passwordField);
 
         // Evento per tornare indietro
         indietro.addActionListener(e -> schermataAvvio());
 
+
+        // Aggiunta componenti al pannello principale
         panel.add(label);
-        panel.add(usernameField);
-        panel.add(passwordField);
+        panel.add(Box.createVerticalStrut(10)); // Spazio dopo il titolo
+        panel.add(inputPanel);
+        panel.add(Box.createVerticalStrut(20)); // Spazio tra campi e pulsanti
         panel.add(login);
         panel.add(indietro);
-        panel.add(messageLabel);
+
 
         add(panel);
         revalidate();
