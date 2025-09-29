@@ -21,6 +21,7 @@ public class GestoreConfiguratori {
     private static final String INSERISCI_PASSWORD = "Inserisci password: ";
     private static final String USERNAME_PASSWORD_ERRATI = "Username o password errati.\n Devi inserire quelli di default Riprova\n";
     private static final String NESSUN_CONFIGURATORE = "Nessun configuratore presente. Creazione di un nuovo configuratore...";
+    private static final String CONFIGURATORE_CREATO = "Configuratore creato con successo!\n";
 
     public static void salvaConfiguratore(List<Configuratore> configuratori) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_CONFIGURATORE))) {
