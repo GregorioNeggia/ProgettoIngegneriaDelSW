@@ -46,6 +46,13 @@ public class GestoreConfiguratori {
         salvaConfiguratore(configuratori);
     }
 
+    public static void creaConfiguratore(List<Configuratore> configuratori) {
+
+        
+
+
+    }
+
 
 }
 
